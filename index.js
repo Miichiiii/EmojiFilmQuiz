@@ -1,7 +1,6 @@
-// filmEmojiRaetsel.js
+
 const readline = require("readline");
 
-// Liste der Film-Emoji-Rätsel
 const raetselListe = [
   { emojis: "🧙‍⚡📚", antwort: "harry potter" },
   { emojis: "🚀🤠🐴", antwort: "toy story" },
@@ -29,13 +28,12 @@ const raetselListe = [
   { emojis: "👻🔑🏠", antwort: "ghostbusters" },
 ];
 
-// Spiel-Status
+
 let aktuellesRaetsel = 0;
 let punkte = 0;
 let richtigeAntworten = 0;
 let falscheAntworten = 0;
 
-// Eingabe-Schnittstelle einrichten
 const eingabeSchnittstelle = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -63,7 +61,7 @@ function frageRaetsel() {
     aktuellesRaetsel++;
 
     if (aktuellesRaetsel < raetselListe.length) {
-      frageRaetsel(); // nächstes Rätsel
+      frageRaetsel();
     } else {
       console.log("\n🎉 Das Spiel ist beendet!");
       console.log(`Endpunktzahl: ${punkte} Punkte`);
@@ -72,6 +70,6 @@ function frageRaetsel() {
   });
 }
 
-// Spielstart
+
 console.log("Willkommen zum Film-Emoji-Rätselspiel!");
 frageRaetsel();
