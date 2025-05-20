@@ -1,73 +1,77 @@
-// emojiRiddleGame.js
+// filmEmojiRaetsel.js
 const readline = require("readline");
 
-const emojiRiddles = [
-  { emojis: "🧙‍⚡📚", answer: "harry potter" },
-  { emojis: "🚀🤠🐴", answer: "toy story" },
-  { emojis: "👨‍🍳🐀", answer: "ratatouille" },
-  { emojis: "🐘🎪", answer: "dumbo" },
-  { emojis: "🦁👑", answer: "der könig der löwen" },
-  { emojis: "❄️⛄👭", answer: "die eiskönigin" },
-  { emojis: "🧸📦", answer: "ted" },
-  { emojis: "🦕🌋", answer: "jurassic park" },
-  { emojis: "🐟🔍", answer: "findet nemo" },
-  { emojis: "🧑‍🚀🌕", answer: "interstellar" },
-  { emojis: "🎈🏠👴", answer: "oben" },
-  { emojis: "🧑🕷️", answer: "spider man" },
-  { emojis: "🦇🌃", answer: "batman" },
-  { emojis: "🧙‍♂️💍", answer: "der herr der ringe" },
-  { emojis: "👸🌹🐻", answer: "die schöne und das biest" },
-  { emojis: "👩🏻🍎🧙‍♀️", answer: "schneewittchen" },
-  { emojis: "🐍🚌🛫", answer: "snakes on a plane" },
-  { emojis: "🚢🧊💔", answer: "titanic" },
-  { emojis: "👽📞🏠", answer: "e.t." },
-  { emojis: "🐷👮‍♂️🏃", answer: "zoomania" },
-  { emojis: "🧛🩸🌙", answer: "twilight" },
-  { emojis: "🚗⚡🏁", answer: "cars" },
-  { emojis: "🐼🥋🐉", answer: "kung fu panda" },
-  { emojis: "👻🔑🏠", answer: "ghostbusters" },
+// Liste der Film-Emoji-Rätsel
+const raetselListe = [
+  { emojis: "🧙‍⚡📚", antwort: "harry potter" },
+  { emojis: "🚀🤠🐴", antwort: "toy story" },
+  { emojis: "👨‍🍳🐀", antwort: "ratatouille" },
+  { emojis: "🐘🎪", antwort: "dumbo" },
+  { emojis: "🦁👑", antwort: "der könig der löwen" },
+  { emojis: "❄️⛄👭", antwort: "die eiskönigin" },
+  { emojis: "🧸📦", antwort: "ted" },
+  { emojis: "🦕🌋", antwort: "jurassic park" },
+  { emojis: "🐟🔍", antwort: "findet nemo" },
+  { emojis: "🧑‍🚀🌕", antwort: "interstellar" },
+  { emojis: "🎈🏠👴", antwort: "oben" },
+  { emojis: "🧑🕷️", antwort: "spider man" },
+  { emojis: "🦇🌃", antwort: "batman" },
+  { emojis: "🧙‍♂️💍", antwort: "der herr der ringe" },
+  { emojis: "👸🌹🐻", antwort: "die schöne und das biest" },
+  { emojis: "👩🏻🍎🧙‍♀️", antwort: "schneewittchen" },
+  { emojis: "🐍🚌🛫", antwort: "snakes on a plane" },
+  { emojis: "🚢🧊💔", antwort: "titanic" },
+  { emojis: "👽📞🏠", antwort: "e.t." },
+  { emojis: "🐷👮‍♂️🏃", antwort: "zoomania" },
+  { emojis: "🧛🩸🌙", antwort: "twilight" },
+  { emojis: "🚗⚡🏁", antwort: "cars" },
+  { emojis: "🐼🥋🐉", antwort: "kung fu panda" },
+  { emojis: "👻🔑🏠", antwort: "ghostbusters" },
 ];
 
-let currentRiddleIndex = 0;
-let score = 0;
-let correctAnswers = 0;
-let wrongAnswers = 0;
+// Spiel-Status
+let aktuellesRaetsel = 0;
+let punkte = 0;
+let richtigeAntworten = 0;
+let falscheAntworten = 0;
 
-const rl = readline.createInterface({
+// Eingabe-Schnittstelle einrichten
+const eingabeSchnittstelle = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-function askRiddle() {
-  const riddle = emojiRiddles[currentRiddleIndex];
-  console.log(`\nRätsel ${currentRiddleIndex + 1}: ${riddle.emojis}`);
-  rl.question("Deine Antwort: ", (userInput) => {
-    const userAnswer = userInput.trim().toLowerCase();
-    if (userAnswer === riddle.answer) {
+function frageRaetsel() {
+  const frage = raetselListe[aktuellesRaetsel];
+  console.log(`\nRätsel ${aktuellesRaetsel + 1}: ${frage.emojis}`);
+  eingabeSchnittstelle.question("Deine Antwort: ", (userInput) => {
+    const nutzerAntwort = userInput.trim().toLowerCase();
+    
+    if (nutzerAntwort === frage.antwort) {
       console.log("✅ Richtig! 🎉");
-      score += 10;
-      correctAnswers++;
+      punkte += 10;
+      richtigeAntworten++;
     } else {
-      console.log(`❌ Falsch! Die richtige Antwort war: "${riddle.answer}"`);
-      wrongAnswers++;
+      console.log(`❌ Falsch! Die korrekte Antwort wäre: "${frage.antwort}"`);
+      falscheAntworten++;
     }
 
     console.log(
-      `Punktestand: ${score} | Richtig: ${correctAnswers} | Falsch: ${wrongAnswers}`
+      `Punkte: ${punkte} | Richtige Antworten: ${richtigeAntworten} | Falsche Antworten: ${falscheAntworten}`
     );
 
-    currentRiddleIndex++;
+    aktuellesRaetsel++;
 
-    if (currentRiddleIndex < emojiRiddles.length) {
-      askRiddle(); // nächste Frage
+    if (aktuellesRaetsel < raetselListe.length) {
+      frageRaetsel(); // nächstes Rätsel
     } else {
-      console.log("\n🎉 Spiel beendet!");
-      console.log(`Endstand: ${score} Punkte`);
-      rl.close();
+      console.log("\n🎉 Das Spiel ist beendet!");
+      console.log(`Endpunktzahl: ${punkte} Punkte`);
+      eingabeSchnittstelle.close();
     }
   });
 }
 
-// Spiel starten
+// Spielstart
 console.log("Willkommen zum Film-Emoji-Rätselspiel!");
-askRiddle();
+frageRaetsel();
